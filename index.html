@@ -32,13 +32,24 @@
     content: "Hint:";
     margin-right: 10px;
 }
+
+#qr-display SVG {
+    width: 500px;
+}
+
+#container {
+    margin-left: 25%;
+    margin-right: 25%;
+}
 </style>
 <body>
+<div id="container">
 <div id="qr-display"></div>
 <div id="size-display"></div>
 <textarea id="text-input" rows="10" cols="30"></textarea>
 <div class="hint">ALL-CAPS messages and URLs make smaller QR codes!</div>
 <div class="hint">Just numbers (e.g. 8472872493) makes an even smaller QR code!</div>
+</div>
 <script src="jquery-3.3.1.min.js"></script>
 <script src="qr.js"></script>
 <script>
