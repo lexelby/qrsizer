@@ -1,0 +1,64 @@
+<html>
+<style>
+#size-display:not(:empty)::before {
+    content: "Grid size:";
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 0.5em;
+}
+
+#size-display:empty::before {
+    content: "Enter text to check QR code size...";
+    font-weight: normal;
+    font-style: italic;
+}
+
+#size-display:not(:empty) {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#text-input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.hint {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.hint::before {
+    content: "Hint:";
+    margin-right: 10px;
+}
+</style>
+<body>
+<div id="qr-display"></div>
+<div id="size-display"></div>
+<textarea id="text-input" rows="10" cols="30"></textarea>
+<div class="hint">ALL-CAPS messages and URLs make smaller QR codes!</div>
+<div class="hint">Just numbers (e.g. 8472872493) makes an even smaller QR code!</div>
+<script src="jquery-3.3.1.min.js"></script>
+<script src="qr.js"></script>
+<script>
+var updateTimer = null;
+
+$('#text-input').on('keyup', function() {
+    if (updateTimer != null) {
+        clearTimeout(updateTimer);
+    }
+
+    updateTimer = setTimeout(function() {
+        var text = $('#text-input').val();
+        var qrdata = QRCode.generate(text);
+        $('#size-display').empty().append("" + qrdata.length);
+        var qrsvg = QRCode.generateSVG(text);
+        $('#qr-display').empty().append(qrsvg);
+    }, 250);
+
+    return true;
+});
+</script>
+</body>
+</html>
